@@ -3,6 +3,8 @@ package com.example.administrator.customerview1.view;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -102,8 +104,29 @@ public class CustomView extends View {
         float hOffset = (float) (2.0f * Math.PI * radius / 8.0f-textSize)/2.0f;
         //        float hOffset = (float) (2 * Math.PI * (radius) / 8);
         canvas.drawTextOnPath(s,path,hOffset,vOffset,yellowPaint);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), android.R.mipmap.sym_def_app_icon);
+        drawIcon(width/2,height/2,radius,-45,bitmap,canvas);
+//        canvas.drawBitmap(bitmap,);
 
 
+    }
+
+    private void drawIcon(int xx,int yy,int mRadius,float startAngle, Bitmap bitmap,Canvas mCanvas)
+    {
+
+        int imgWidth = mRadius / 4;
+
+        float angle = (float) Math.toRadians(60 +startAngle);
+
+        float x = (float) (xx + mRadius / 2 * Math.cos(angle));
+        float y = (float) (yy + mRadius / 2  * Math.sin(angle));
+
+        // 确定绘制图片的位置
+        RectF rect = new RectF(x - imgWidth *3/ 4, y - imgWidth*3 / 4, x + imgWidth
+                *3/ 4, y + imgWidth*3/4);
+
+
+        mCanvas.drawBitmap(bitmap, null, rect, null);
     }
 
     @Override
